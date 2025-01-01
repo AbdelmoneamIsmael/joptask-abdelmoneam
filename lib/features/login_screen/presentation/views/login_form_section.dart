@@ -5,23 +5,6 @@ import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
-import 'package:tasky_abdelmoneam/features/on_boarding/screen/on_boarding_screen.dart';
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: [
-          GreatingSection(),
-          LoginFormSection(),
-        ],
-      ),
-    );
-  }
-}
 
 class LoginFormSection extends StatelessWidget {
   const LoginFormSection({
