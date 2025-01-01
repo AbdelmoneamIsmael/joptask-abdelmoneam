@@ -5,6 +5,7 @@ import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
+import 'package:tasky_abdelmoneam/core/widgets/country_code_picker.dart';
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({
@@ -32,6 +33,7 @@ class RegisterForm extends StatelessWidget {
               ),
               const AppTextField(
                 hint: "Phone Number...",
+                prefixIcon: CountryCodeIcon(),
               ),
               const AppTextField(
                 hint: "Years of Experience...",

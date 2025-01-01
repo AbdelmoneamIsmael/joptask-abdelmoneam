@@ -10,6 +10,9 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  country_code_picker:
+    git: https://github.com/AbdelmoneamIsmael/CountryCodeAddSomeOptions
+    
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   dotted_border: ^2.1.0

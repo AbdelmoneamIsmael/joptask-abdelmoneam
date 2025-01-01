@@ -1,6 +1,7 @@
 abstract class AppIcons {
   static const String arrowLeft = 'assets/icons/Arrow - Left.svg';
   static const String arrowDown = 'assets/icons/Arrow - Down 4.svg';
+  static const String arrowDownIos = 'assets/icons/chevron-down.svg';
   static const String profileIcon = 'assets/icons/profile.svg';
   static const String logoutIcon = 'assets/icons/logout.svg';
   static const String backArrow = 'assets/icons/back_arrow.svg';
