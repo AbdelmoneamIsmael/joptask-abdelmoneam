@@ -9,4 +9,5 @@ abstract class AppIcons {
   static const String calendarIcon = 'assets/icons/calendar.svg';
   static const String priorityIcon = 'assets/icons/flag.svg';
   static const String addImage = 'assets/icons/add-image.svg';
+  static const String copyIcon = 'assets/icons/copyIcon.svg';
 }

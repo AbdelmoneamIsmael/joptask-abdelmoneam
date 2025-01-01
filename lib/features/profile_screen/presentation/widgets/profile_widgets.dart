@@ -7,8 +7,10 @@ class ProfileWidget extends StatelessWidget {
     super.key,
     required this.name,
     required this.value,
+    this.suffix,
   });
   final String name, value;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +21,34 @@ class ProfileWidget extends StatelessWidget {
         color: const Color(0xffF5F5F5),
         borderRadius: const BorderRadius.all(Radius.circular(10)).w,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 4.h,
+      child: Row(
+        spacing: 8.w,
         children: [
-          Text(
-            name,
-            style: AppTextStyle.meduim.copyWith(
-              fontSize: 12.sp,
-              height: 1.3,
-              color: const Color(0xff2F2F2F).withValues(alpha: .4),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4.h,
+              children: [
+                Text(
+                  name,
+                  style: AppTextStyle.meduim.copyWith(
+                    fontSize: 12.sp,
+                    height: 1.3,
+                    color: const Color(0xff2F2F2F).withValues(alpha: .4),
+                  ),
+                ),
+                Text(
+                  value,
+                  style: AppTextStyle.bold.copyWith(
+                    fontSize: 18.sp,
+                    height: 1.3,
+                    color: const Color(0xff2F2F2F).withValues(alpha: .6),
+                  ),
+                ),
+              ],
             ),
           ),
-          Text(
-            value,
-            style: AppTextStyle.bold.copyWith(
-              fontSize: 18.sp,
-              height: 1.3,
-              color: const Color(0xff2F2F2F).withValues(alpha: .6),
-            ),
-          ),
+          if (suffix != null) suffix!,
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
@@ -41,7 +42,19 @@ class ProfileScreen extends StatelessWidget {
                 name: 'NAME',
                 value: 'Islam Sayed',
               ),
-              const ProfileWidget(
+              ProfileWidget(
+                suffix: GestureDetector(
+                  onTap: () {
+                    Clipboard.setData(
+                      const ClipboardData(text: "01021016072"),
+                    ).then((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Copied to Clipboard!')),
+                      );
+                    });
+                  },
+                  child: SvgPicture.asset(AppIcons.copyIcon),
+                ),
                 name: 'PHONE',
                 value: '+20 123 456-7890',
               ),
