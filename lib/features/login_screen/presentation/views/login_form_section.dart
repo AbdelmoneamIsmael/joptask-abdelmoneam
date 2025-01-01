@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
@@ -5,23 +6,7 @@ import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
-import 'package:tasky_abdelmoneam/features/on_boarding/screen/on_boarding_screen.dart';
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: [
-          GreatingSection(),
-          LoginFormSection(),
-        ],
-      ),
-    );
-  }
-}
+import 'package:tasky_abdelmoneam/core/widgets/country_code_picker.dart';
 
 class LoginFormSection extends StatelessWidget {
   const LoginFormSection({
@@ -42,6 +27,7 @@ class LoginFormSection extends StatelessWidget {
           ),
           24.verticalSpace,
           const AppTextField(
+            prefixIcon: CountryCodeIcon(),
             hint: "Phone number..",
           ),
           20.verticalSpace,

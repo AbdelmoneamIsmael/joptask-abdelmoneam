@@ -1,48 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
-
-import 'package:tasky_abdelmoneam/core/utils/generator/app_images.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: [
-          GreatingSection(),
-          GetStartedSection(),
-        ],
-      ),
-    );
-  }
-}
-
-class GreatingSection extends StatelessWidget {
-  const GreatingSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        width: MediaQuery.sizeOf(context).width,
-        child: Image.asset(
-          AppImages.onboarding,
-          fit: BoxFit.fitWidth,
-        ),
-      ),
-    );
-  }
-}
 
 class GetStartedSection extends StatelessWidget {
   const GetStartedSection({

@@ -71,7 +71,7 @@ class AppTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
         ),
         suffixIcon: suffixIcon,
-        prefix: prefixIcon,
+        prefixIcon: prefixIcon,
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/screen/edit_task_screen.dart';
-import 'package:tasky_abdelmoneam/features/home/home_screen.dart';
-import 'package:tasky_abdelmoneam/features/login_screen/screens/login_screen.dart';
-import 'package:tasky_abdelmoneam/features/on_boarding/screen/on_boarding_screen.dart';
-import 'package:tasky_abdelmoneam/features/profile_screen/profile_screen.dart';
-import 'package:tasky_abdelmoneam/features/register_screen/screen/register_screen.dart';
-import 'package:tasky_abdelmoneam/features/task_details/task_details_screen.dart';
+import 'package:tasky_abdelmoneam/features/edit_task/presentation/screen/edit_task_screen.dart';
+import 'package:tasky_abdelmoneam/features/home/presentation/screens/home_screen.dart';
+import 'package:tasky_abdelmoneam/features/login_screen/presentation/screens/login_screen.dart';
+import 'package:tasky_abdelmoneam/features/on_boarding/presentation/screen/on_boarding_screen.dart';
+import 'package:tasky_abdelmoneam/features/profile_screen/presentation/screens/profile_screen.dart';
+import 'package:tasky_abdelmoneam/features/register_screen/presentation/screen/register_screen.dart';
+import 'package:tasky_abdelmoneam/features/task_details/presentation/screens/task_details_screen.dart';
 
 class AppRouters {
   Route onGenerateRoutes(RouteSettings settings) {
