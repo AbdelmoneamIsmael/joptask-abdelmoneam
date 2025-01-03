@@ -1,1 +1,1 @@
-enum PersonLevel{level,junior,midLevel,senior}
+enum PersonLevel { fresh, junior, midLevel, senior }

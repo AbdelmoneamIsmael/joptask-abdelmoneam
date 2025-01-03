@@ -1,45 +1,25 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
+import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
 
-class AppTextField extends StatelessWidget {
-  const AppTextField({
-    this.maxLines = 1,
-    super.key,
-    required this.hint,
-    this.controller,
-    this.isPassword = false,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.inputFormatters,
-    this.keyboardType,
-  });
+class AppDropdown extends StatelessWidget {
+  const AppDropdown(
+      {super.key,
+      required this.items,
+      required this.onChanged,
+      required this.hint});
+  final List<DropdownMenuItem> items;
+  final void Function(dynamic) onChanged;
   final String hint;
-  final bool? isPassword;
-  final int? maxLines;
-  final TextEditingController? controller;
-  final Widget? suffixIcon, prefixIcon;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextInputType? keyboardType;
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-      controller: controller,
-      obscureText: isPassword!,
-      maxLines: maxLines,
-      inputFormatters: inputFormatters,
-      keyboardType: keyboardType,
-      validator: (value) => value!.isEmpty ? 'Please enter $hint' : null,
-      style: AppTextStyle.meduim.copyWith(
-        fontSize: 14.sp,
-        color: AppColors.normalTextColor,
-        height: 1.4,
-      ),
+    return DropdownButtonFormField2(
       decoration: InputDecoration(
-        hintText: hint,
         errorStyle: AppTextStyle.regular.copyWith(
           fontSize: 14.sp,
           color: AppColors.errorTextColor,
@@ -52,7 +32,7 @@ class AppTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.backgroundColor,
-        contentPadding: const EdgeInsets.all(15).w,
+        contentPadding: const EdgeInsets.only(right: 12).w,
         border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: AppColors.textFieldBorderColor,
@@ -77,9 +57,37 @@ class AppTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(10.r),
         ),
-        suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon,
       ),
+      hint: Text(
+        hint,
+        style: AppTextStyle.regular.copyWith(
+          fontSize: 14.sp,
+          color: AppColors.hintTextColor,
+          height: 1.4,
+        ),
+      ),
+      iconStyleData: IconStyleData(
+        icon: SvgPicture.asset(
+          AppIcons.arrowDownIos,
+          fit: BoxFit.scaleDown,
+          width: 24.w,
+        ),
+      ),
+      dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          color: AppColors.backgroundColor,
+        ),
+      ),
+      style: AppTextStyle.meduim.copyWith(
+        fontSize: 14.sp,
+        color: AppColors.normalTextColor,
+        height: 1.4,
+      ),
+      validator: (value) => value == null ? 'Please enter $hint' : null,
+      isDense: true,
+      items: items,
+      onChanged: onChanged,
     );
   }
 }

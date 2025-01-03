@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
 abstract class Failure {
-  final String message;
   Failure(this.message);
+  final String message;
 }
 
 class ServerFailure extends Failure {
@@ -37,6 +37,8 @@ class ServerFailure extends Failure {
       return ServerFailure(response.data!["message"]);
     } else if (response.statusCode == 401 || response.statusCode == 403) {
       return ServerFailure(response.statusMessage!);
+    } else if (response.statusCode == 422) {
+      return ServerFailure(response.data!["message"]);
     } else {
       return ServerFailure('Unexpected Error, please try again!');
     }
