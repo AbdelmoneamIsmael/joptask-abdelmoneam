@@ -11,6 +11,7 @@ import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_dropdown.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
 import 'package:tasky_abdelmoneam/core/widgets/country_code_picker.dart';
+import 'package:tasky_abdelmoneam/core/widgets/login_button.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/cubit/register_cubit_cubit.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/cubit/register_cubit_state.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/repo/register_repo.dart';
@@ -24,10 +25,27 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
-        registerRepo: getIt. get< RegisterRepo>(),
+        registerRepo: getIt.get<RegisterRepo>(),
       ),
       child: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is SuccessRegister) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Register Success"),
+              ),
+            );
+            context.pushNamedAndRemoveUntil(Routes.home,
+                predicate: (_) => false);
+          } else if (state is FailedRegister) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+                backgroundColor: AppColors.errorTextColor,
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           final cubit = BlocProvider.of<RegisterCubit>(context);
           return Padding(
@@ -109,10 +127,12 @@ class RegisterForm extends StatelessWidget {
                     ],
                   ),
                   24.verticalSpace,
-                  ElevatedButton(
-                    onPressed: cubit.register,
-                    child: const Text("Sign Up"),
-                  ),
+                  state is LoadingRegister
+                      ? const LoadingButton()
+                      : ElevatedButton(
+                          onPressed: cubit.register,
+                          child: const Text("Sign Up"),
+                        ),
                   24.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

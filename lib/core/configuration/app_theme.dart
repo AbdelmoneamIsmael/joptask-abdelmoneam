@@ -38,6 +38,17 @@ ThemeData taskyAppTheme() {
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: AppColors.primary,
     ),
+    snackBarTheme: SnackBarThemeData(
+        backgroundColor: AppColors.primary,
+        contentTextStyle: AppTextStyle.meduim.copyWith(
+          fontSize: 14.sp,
+          color: AppColors.backgroundColor,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(10.r),
+          ),
+        )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,

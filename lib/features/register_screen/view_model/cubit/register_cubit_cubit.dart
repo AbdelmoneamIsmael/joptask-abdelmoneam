@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
+import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/cubit/register_cubit_state.dart';
@@ -40,16 +43,17 @@ class RegisterCubit extends Cubit<RegisterState> {
           displayName: nameController.text,
           experienceYears: double.parse(yearsExperienceController.text),
           address: addressController.text,
-          level: yearsExperienceController.text,
+          level: experienceLevelController.text,
         );
         var reslut = await registerRepo.register(registerModel: registerModel);
         reslut.fold(
           (l) => emit(FailedRegister(l.message)),
           (r) {
-        
+            var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
+            box.add(r);
             emit(SuccessRegister());
-          });
-        emit(SuccessRegister());
+          },
+        );
       } catch (e) {
         emit(
           FailedRegister(

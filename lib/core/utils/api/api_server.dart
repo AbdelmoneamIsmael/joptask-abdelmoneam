@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
+import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 
 class ApiServer {
@@ -28,10 +29,8 @@ class ApiServer {
 
   Dio get dio => _dio!;
 
-  
   //----------------------------------------------------------------------------
 
-  
   /// get request from api
   Future<Map<String, dynamic>> get({
     required String uri,
@@ -41,7 +40,7 @@ class ApiServer {
     String url = "$baseURl$uri";
     Map<String, String> headers = {};
     String? token =
-        await CacheHelper.getSecuerString(key: SharedKeys.loginToken);
+        await CacheHelper.getSecuerString(key: CachedKeys.loginToken);
     headers.addAll({
       "Authorization": "Bearer $token",
     });
@@ -69,17 +68,17 @@ class ApiServer {
   /// post request from api
   Future<Map<String, dynamic>> post({
     required String endPoint,
-    String? lang,
     Object? data,
   }) async {
-    Map<String, String> headers = {};
-   
-      String? token =
-          await CacheHelper.getSecuerString(key: SharedKeys.loginToken);
-      headers.addAll({
-        "Authorization": "Bearer $token",
-      });
-    
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+    };
+
+    String? token =
+        await CacheHelper.getSecuerString(key: CachedKeys.loginToken);
+    headers.addAll({
+      "Authorization": "Bearer $token",
+    });
 
     String url = "$baseURl$endPoint";
     _dio?.options.headers = headers;
@@ -88,10 +87,7 @@ class ApiServer {
       data: data,
     );
 
-    if (response.data is String) {
-      return {"message": response.data};
-    }
+    response.statusCode.toString().printConsole;
     return response.data;
   }
 }
-
