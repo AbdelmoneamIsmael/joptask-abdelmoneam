@@ -1,3 +1,6 @@
+ import 'package:hive/hive.dart';
+ part 'login_response.g.dart';
+ @HiveType(typeId: 0)
 class LoginResponse {
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
@@ -11,9 +14,11 @@ class LoginResponse {
     required this.accessToken,
     required this.refreshToken,
   });
-
+  @HiveField(0)
   String? id;
+  @HiveField(1)
   String? accessToken;
+  @HiveField(2)
   String? refreshToken;
 
   LoginResponse copyWith({
