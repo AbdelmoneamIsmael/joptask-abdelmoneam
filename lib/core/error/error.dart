@@ -42,7 +42,7 @@ class ServerFailure extends Failure {
     } else if (response.statusCode == 400) {
       return ServerFailure(response.data!["message"]);
     } else if (response.statusCode == 401 || response.statusCode == 403) {
-      return ServerFailure(response.statusMessage!);
+      return ServerFailure(response.data!["message"]);
     } else if (response.statusCode == 422) {
       return ServerFailure(response.data!["message"]);
     } else {

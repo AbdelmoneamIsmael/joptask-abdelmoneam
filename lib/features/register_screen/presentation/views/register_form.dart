@@ -77,7 +77,7 @@ class RegisterForm extends StatelessWidget {
                         hint: "Phone Number...",
                         prefixIcon: CountryCodeIcon(
                           onChanged: (code) {
-                            print(code.dialCode);
+                            
                             cubit.countryCode = code.dialCode!;
                           },
                         ),

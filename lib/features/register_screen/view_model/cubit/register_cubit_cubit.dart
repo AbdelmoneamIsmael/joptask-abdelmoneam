@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/models/login_response.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
-import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/cubit/register_cubit_state.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/data/model/register_model.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/repo/register_repo.dart';

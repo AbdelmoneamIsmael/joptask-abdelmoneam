@@ -6,4 +6,6 @@ abstract class Routes {
   static const String taskDetailsScreen = '/taskDetailsScreen';
   static const String editTask = '/editTask';
   static const String profileScreen = '/profileScreen';
+
+ 
 }
