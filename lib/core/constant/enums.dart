@@ -1,0 +1,1 @@
+enum PersonLevel{level,junior,midLevel,senior}
