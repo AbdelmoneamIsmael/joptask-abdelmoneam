@@ -1,6 +1,7 @@
- import 'package:hive/hive.dart';
- part 'login_response.g.dart';
- @HiveType(typeId: 0)
+import 'package:hive/hive.dart';
+part 'login_response.g.dart';
+
+@HiveType(typeId: 0)
 class LoginResponse {
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
@@ -41,6 +42,6 @@ class LoginResponse {
 
   @override
   String toString() {
-    return "$id, $accessToken, $refreshToken, ";
+    return "id $id, accessToken $accessToken, refreshToken $refreshToken, ";
   }
 }

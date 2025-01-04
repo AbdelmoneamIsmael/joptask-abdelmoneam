@@ -38,7 +38,9 @@ class ServerFailure extends Failure {
     if (response.statusCode == 404) {
       return ServerFailure('Not Found');
     } else if (response.statusCode == 500) {
-      return ServerFailure('Internal Server Error');
+      // var data = response.data as RequestOptions;
+      // data.
+      return ServerFailure(response.data!["message"]);
     } else if (response.statusCode == 400) {
       return ServerFailure(response.data!["message"]);
     } else if (response.statusCode == 401 || response.statusCode == 403) {

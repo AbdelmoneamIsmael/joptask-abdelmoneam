@@ -46,8 +46,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         var reslut = await registerRepo.register(registerModel: registerModel);
         reslut.fold(
           (l) => emit(FailedRegister(l.message)),
-          (r) {
+          (r) async {
             var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
+            await box.clear();
             box.add(r);
             emit(SuccessRegister());
           },

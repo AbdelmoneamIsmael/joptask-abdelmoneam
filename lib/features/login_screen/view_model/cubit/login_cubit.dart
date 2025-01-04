@@ -37,9 +37,10 @@ class LoginCubit extends Cubit<LoginState> {
         );
         var result = await loginRepo.login(loginModel: loginModel);
         result.fold(
-          (l) => emit(LoginFailed(error:  l.message)),
-          (r) {
+          (l) => emit(LoginFailed(error: l.message)),
+          (r) async {
             var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
+            await box.clear();
             box.add(r);
             emit(
               LoginSuccess(),
@@ -47,7 +48,7 @@ class LoginCubit extends Cubit<LoginState> {
           },
         );
       } on Exception catch (e) {
-        emit(LoginFailed(error:  e.toString()));
+        emit(LoginFailed(error: e.toString()));
       }
     }
   }

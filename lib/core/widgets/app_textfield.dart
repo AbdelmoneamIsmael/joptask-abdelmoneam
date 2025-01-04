@@ -14,10 +14,10 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.inputFormatters,
-    this.keyboardType,
+    this.keyboardType, this.readOnly,
   });
   final String hint;
-  final bool? isPassword;
+  final bool? isPassword, readOnly;
   final int? maxLines;
   final TextEditingController? controller;
   final Widget? suffixIcon, prefixIcon;
@@ -28,10 +28,11 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
       controller: controller,
+      readOnly:readOnly ?? false,
       obscureText: isPassword!,
       maxLines: maxLines,
       inputFormatters: inputFormatters,
-      keyboardType: keyboardType,
+      keyboardType: keyboardType ?? TextInputType.name,
       validator: (value) => value!.isEmpty ? 'Please enter $hint' : null,
       style: AppTextStyle.meduim.copyWith(
         fontSize: 14.sp,

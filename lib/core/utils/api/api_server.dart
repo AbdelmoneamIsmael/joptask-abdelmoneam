@@ -69,13 +69,13 @@ class ApiServer {
   Future<Map<String, dynamic>> post({
     required String endPoint,
     Object? data,
+    String? token,
+    String? contentType,
   }) async {
     Map<String, String> headers = {
-      "Content-Type": "application/json",
+      "Content-Type": contentType ?? "application/json",
     };
 
-    String? token =
-        await CacheHelper.getSecuerString(key: CachedKeys.loginToken);
     headers.addAll({
       "Authorization": "Bearer $token",
     });
