@@ -62,14 +62,6 @@ class HomeBody extends StatelessWidget {
                           child: Column(
                             children: [
                               SvgPicture.asset(AppIcons.noTasks),
-                              // const Text(
-                              //   "No Tasks",
-                              //   style: TextStyle(
-                              //     color: AppColors.primary,
-                              //     fontSize: 20,
-                              //     fontWeight: FontWeight.w500,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),

@@ -8,7 +8,8 @@ import 'package:tasky_abdelmoneam/core/utils/functions/initialize_hive.dart';
 import 'package:tasky_abdelmoneam/tasky_app.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
+
   await initApp();
   await ScreenUtil.ensureScreenSize();
 
