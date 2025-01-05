@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(
         getAllTasksRepo: getIt.get<GetAllTasksRepo>(),
         logOutRepo: getIt.get<LogOutRepo>(),
-        searchRepo:  getIt.get<SearchRepo>(),
+        searchRepo: getIt.get<SearchRepo>(),
       )..onInit(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
           return Stack(
             children: [
               Scaffold(
+                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   title: const Text('Logo'),
                   actions: [
