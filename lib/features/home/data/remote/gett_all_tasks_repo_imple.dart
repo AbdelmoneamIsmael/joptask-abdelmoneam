@@ -1,27 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
-import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/error/error.dart';
-import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_server.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
+
 class GettAllTasksRepoImple extends GetAllTasksRepo {
   final ApiServer apiServer = ApiServer();
   @override
   Future<Either<Failure, List<TaskModel>>> getAllTasks(
       {required int pageNumber, String? status}) async {
     try {
-      var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
-      LoginResponse? loginResponse = box.getAt(0);
       var result = await apiServer.getRequest(
-        uri: "/todos?page=$pageNumber${status != null ? "&status=$status" : ""}",
-        additionalHeaders: {
-          "Authorization": "Bearer ${loginResponse!.accessToken}"
-        },
+        uri:
+            "/todos?page=$pageNumber${status != null ? "&status=$status" : ""}",
       );
       List<dynamic> data = result["data"];
       List<TaskModel> tasks = data

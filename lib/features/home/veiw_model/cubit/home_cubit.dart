@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_state.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';

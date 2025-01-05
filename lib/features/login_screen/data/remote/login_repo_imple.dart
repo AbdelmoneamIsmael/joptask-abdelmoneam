@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/error/error.dart';
 import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_server.dart';
+import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/data/model/login_model.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/view_model/login_repo/login_repo.dart';
 
@@ -15,6 +17,7 @@ class LoginRepoImple extends LoginRepo {
       var result = await apiServer.post(
           endPoint: "/auth/login", data: loginModel.toJson());
       LoginResponse loginResponse = LoginResponse.fromJson(result);
+      storeKeys(loginResponse);
       return Right(loginResponse);
     } on Exception catch (e) {
       if (e is DioException) {
@@ -23,5 +26,12 @@ class LoginRepoImple extends LoginRepo {
         return Left(ServerFailure(e.toString()));
       }
     }
+  }
+
+  void storeKeys(LoginResponse loginResponse) {
+    CacheHelper.flutterSecureStorage
+        .write(key: CachedKeys.accessToken, value: loginResponse.accessToken);
+    CacheHelper.flutterSecureStorage
+        .write(key: CachedKeys.refreshToken, value: loginResponse.refreshToken);
   }
 }

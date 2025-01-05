@@ -2,26 +2,20 @@ import 'dart:io';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
-import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/error/error.dart';
-import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_server.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/presentation/data/model/task_model.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/repo/add_task_repo.dart';
+import 'package:tasky_abdelmoneam/features/create_task/presentation/data/model/task_model.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/repo/add_task_repo.dart';
 import 'package:http_parser/http_parser.dart' as http;
 import 'package:mime/mime.dart';
-import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 class AddTaskRepoImpl extends AddTaskRepo {
   ApiServer apiServer = ApiServer();
   @override
   Future<Either<Failure, bool>> addTask(EditTaskModel taskModel) async {
     try {
-      var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
-      LoginResponse? loginResponse = box.getAt(0);
+    
       Map<String, dynamic> taskJson =
-          await getImageLink(taskModel, loginResponse!.accessToken!);
+          await getImageLink(taskModel,);
 
       taskJson["title"] = taskModel.title;
       taskJson["desc"] = taskModel.desc;
@@ -31,7 +25,7 @@ class AddTaskRepoImpl extends AddTaskRepo {
       var result = await apiServer.post(
         endPoint: "/todos",
         data: taskJson,
-        token: loginResponse.accessToken,
+        
       );
       result.toString().printConsole;
       return const Right(true);
@@ -45,7 +39,7 @@ class AddTaskRepoImpl extends AddTaskRepo {
   }
 
   Future<Map<String, dynamic>> getImageLink(
-      EditTaskModel taskModel, String token) async {
+      EditTaskModel taskModel) async {
     FormData formData = FormData();
 
     // Check if the image path is valid
@@ -70,13 +64,12 @@ class AddTaskRepoImpl extends AddTaskRepo {
     formData.files.add(MapEntry("image", file));
 
     // Log the formData to ensure it contains the image
-    print(formData.toString());
 
     var imageResult = await apiServer.post(
       endPoint: "/upload/image",
       data: formData,
       contentType: "multipart/form-data",
-      token: token,
+     
     );
 
     imageResult.toString().printConsole;

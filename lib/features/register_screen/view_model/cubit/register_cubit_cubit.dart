@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
-import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/cubit/register_cubit_state.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/data/model/register_model.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/repo/register_repo.dart';
@@ -47,9 +44,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         reslut.fold(
           (l) => emit(FailedRegister(l.message)),
           (r) async {
-            var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
-            await box.clear();
-            box.add(r);
+            
             emit(SuccessRegister());
           },
         );

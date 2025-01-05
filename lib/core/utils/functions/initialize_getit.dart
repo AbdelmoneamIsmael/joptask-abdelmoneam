@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/presentation/data/remote/add_task_repo_impl.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/repo/add_task_repo.dart';
+import 'package:tasky_abdelmoneam/features/create_task/presentation/data/remote/add_task_repo_impl.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/repo/add_task_repo.dart';
 import 'package:tasky_abdelmoneam/features/home/data/remote/gett_all_tasks_repo_imple.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/data/remote/login_repo_imple.dart';

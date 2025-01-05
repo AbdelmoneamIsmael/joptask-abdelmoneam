@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tasky_abdelmoneam/core/widgets/get_image_mixin.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/presentation/data/model/task_model.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/cubit/edit_task_state.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/repo/add_task_repo.dart';
+import 'package:tasky_abdelmoneam/features/create_task/presentation/data/model/task_model.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/cubit/edit_task_state.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/repo/add_task_repo.dart';
 
 class EditTaskCubit extends Cubit<EditTaskState> with ImageMixin {
   EditTaskCubit(this.addTaskRepo) : super(EditTaskInitial());

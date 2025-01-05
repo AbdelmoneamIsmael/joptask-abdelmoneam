@@ -10,13 +10,12 @@ import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_secondry_drop_down.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
-import 'package:tasky_abdelmoneam/core/widgets/get_image_mixin.dart';
 import 'package:tasky_abdelmoneam/core/widgets/login_button.dart';
 import 'package:tasky_abdelmoneam/core/widgets/show_date_time.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/presentation/widgets/widget_with_title.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/cubit/edit_task_cubit.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/cubit/edit_task_state.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/view_model/repo/add_task_repo.dart';
+import 'package:tasky_abdelmoneam/features/create_task/presentation/widgets/widget_with_title.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/cubit/edit_task_cubit.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/cubit/edit_task_state.dart';
+import 'package:tasky_abdelmoneam/features/create_task/view_model/repo/add_task_repo.dart';
 
 class TaskDetailsView extends StatelessWidget {
   const TaskDetailsView({

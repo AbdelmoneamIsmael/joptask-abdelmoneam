@@ -53,8 +53,7 @@ mixin ImageMixin {
     );
 
     if (result != null) {
-      print('Original size: ${file.lengthSync()}');
-      print('Compressed size: ${result.length}');
+
       return result;
     } else {
       throw Exception('Image compression failed');
@@ -78,7 +77,6 @@ mixin ImageMixin {
     );
 
     if (result != null) {
-      print('Original size: ${file.lengthSync()}');
       return File(result.path);
     } else {
       throw Exception('File compression failed');
@@ -104,8 +102,6 @@ mixin ImageMixin {
       rotate: 135,
     );
 
-    print('Original list length: ${list.length}');
-    print('Compressed list length: ${result.length}');
     return result;
   }
 }

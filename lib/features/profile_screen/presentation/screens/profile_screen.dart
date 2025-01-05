@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
-import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
 import 'package:tasky_abdelmoneam/features/profile_screen/presentation/widgets/profile_widgets.dart';
@@ -93,17 +93,18 @@ class ProfileScreen extends StatelessWidget {
                                         state.userModel.username ??
                                             "+2001021016072"),
                               ),
-                              const ProfileWidget(
+                              ProfileWidget(
                                 name: 'LEVEL',
-                                value: 'Senior',
+                                value: state.userModel.level.name.capitalize ,
                               ),
-                              const ProfileWidget(
+                              ProfileWidget(
                                 name: 'YEAR OF EXPERIENCE',
-                                value: '7 years',
+                                value:
+                                    " ${state.userModel.experienceYears} years",
                               ),
-                              const ProfileWidget(
+                              ProfileWidget(
                                 name: 'LOCATION',
-                                value: 'Fayyum, Egypt',
+                                value: state.userModel.address ?? "Cairo",
                               ),
                             ],
                           )

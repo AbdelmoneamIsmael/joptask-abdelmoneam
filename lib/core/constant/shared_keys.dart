@@ -1,5 +1,7 @@
 abstract class CachedKeys {
-  static const String loginToken = 'loginToken';
-  static const String kRefreshToken = 'kRefreshToken';
-  static const String loginResponse = 'loginResponse';
+
+
+  
+  static const String accessToken = 'accessToken';
+  static const String refreshToken = 'refreshToken';
 }

@@ -4,6 +4,6 @@ abstract class Routes {
   static const String loginScreen = '/loginScreen';
   static const String registerScreen = '/registerScreen';
   static const String taskDetailsScreen = '/taskDetailsScreen';
-  static const String editTask = '/editTask';
+  static const String createTask = '/createTask';
   static const String profileScreen = '/profileScreen';
 }

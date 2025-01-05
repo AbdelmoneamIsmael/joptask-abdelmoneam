@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/widgets/loading_overlay.dart';
-import 'package:tasky_abdelmoneam/features/edit_task/presentation/screen/edit_task_screen.dart';
+import 'package:tasky_abdelmoneam/features/create_task/presentation/screen/create_task.dart';
 import 'package:tasky_abdelmoneam/features/home/presentation/screens/home_screen.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_cubit.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/presentation/screens/login_screen.dart';
@@ -17,7 +17,7 @@ class PageRoutes {
   PageRoutes._();
 
   static GoRouter router = GoRouter(
-    // initialLocation: Routes.home,
+    initialLocation: Routes.home,
     errorBuilder: (context, state) => const ErorPage(),
     routes: [
       GoRoute(
@@ -58,9 +58,9 @@ class PageRoutes {
         },
       ),
       GoRoute(
-        path: Routes.editTask,
+        path: Routes.createTask,
         builder: (context, state) {
-          return const EditTaskScreen();
+          return const CreateTaskScreen();
         },
       ),
       GoRoute(

@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
 import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
-import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_repo.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
@@ -46,11 +44,12 @@ class ApiServer extends ApiRepo {
         onResponse: (response, handler) async {
           return handler.next(response);
         },
-        onError: (e, handler) async {
-          if (e.response?.statusCode == 401) {
+        onError: (error, handler) async {
+          if (error.response?.statusCode == 403 ||
+              error.response?.statusCode == 401) {
             await refreshToken();
           }
-          return handler.next(e);
+          return handler.next(error);
         },
       ),
     );
@@ -60,16 +59,17 @@ class ApiServer extends ApiRepo {
   @override
   Future<Map<String, dynamic>> getRequest({
     required String uri,
-    String? lang,
     Map<String, String>? additionalHeaders,
   }) async {
     String url = "$baseURl$uri";
     Map<String, String> headers = {};
     String? token =
-        await CacheHelper.getSecuerString(key: CachedKeys.loginToken);
-    headers.addAll({
-      "Authorization": "Bearer $token",
-    });
+        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+    headers.addAll(
+      {
+        "Authorization": "Bearer $token",
+      },
+    );
     if (additionalHeaders != null) {
       headers.addAll(additionalHeaders);
     }
@@ -100,16 +100,17 @@ class ApiServer extends ApiRepo {
   Future<Map<String, dynamic>> post({
     required String endPoint,
     Object? data,
-    String? token,
     String? contentType,
   }) async {
-    Map<String, String> headers = {
-      "Content-Type": contentType ?? "application/json",
-    };
-
-    headers.addAll({
-      "Authorization": "Bearer $token",
-    });
+    Map<String, String> headers = {};
+    String? token =
+        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+    headers.addAll(
+      {
+        "Authorization": token == null ? "" : "Bearer $token",
+        "Content-Type": contentType ?? "application/json",
+      },
+    );
 
     String url = "$baseURl$endPoint";
     _dio?.options.headers = headers;
@@ -124,16 +125,16 @@ class ApiServer extends ApiRepo {
 
   @override
   Future<Map<String, dynamic>> delete(
-      {required String endPoint,
-      Object? data,
-      String? token,
-      String? contentType}) async {
-    Map<String, String> headers = {
-      "Content-Type": contentType ?? "application/json",
-    };
-    headers.addAll({
-      "Authorization": "Bearer $token",
-    });
+      {required String endPoint, Object? data, String? contentType}) async {
+    Map<String, String> headers = {};
+    String? token =
+        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+    headers.addAll(
+      {
+        "Authorization": token == null ? "" : "Bearer $token",
+        "Content-Type": contentType ?? "application/json",
+      },
+    );
     String url = "$baseURl$endPoint";
     _dio?.options.headers = headers;
     var response = await _dio!.delete(
@@ -145,16 +146,16 @@ class ApiServer extends ApiRepo {
 
   @override
   Future<Map<String, dynamic>> put(
-      {required String endPoint,
-      Object? data,
-      String? token,
-      String? contentType}) async {
-    Map<String, String> headers = {
-      "Content-Type": contentType ?? "application/json",
-    };
-    headers.addAll({
-      "Authorization": "Bearer $token",
-    });
+      {required String endPoint, Object? data, String? contentType}) async {
+    Map<String, String> headers = {};
+    String? token =
+        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+    headers.addAll(
+      {
+        "Authorization": token == null ? "" : "Bearer $token",
+        "Content-Type": contentType ?? "application/json",
+      },
+    );
     String url = "$baseURl$endPoint";
     _dio?.options.headers = headers;
     var response = await _dio!.put(
@@ -167,26 +168,39 @@ class ApiServer extends ApiRepo {
   Future<void> refreshToken() async {
     "---------------------------refreshing token-----------------------------"
         .printConsole;
-    var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
-    LoginResponse? loginResponse = box.getAt(0);
+    String? accessToken =
+        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+    String? refreshToken =
+        await CacheHelper.getSecuerString(key: CachedKeys.refreshToken);
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": "Bearer ${loginResponse!.accessToken}"
+      "Authorization": "Bearer $accessToken"
     };
-    String url =
-        "$baseURl/auth/refresh-token?token=${loginResponse.refreshToken}";
+    String url = "$baseURl/auth/refresh-token?token=$refreshToken";
     _dio?.options.headers = headers;
     var response = await _dio!.get(
       url,
     );
     if (response.statusCode == 200) {
-      loginResponse.accessToken = response.data["access_token"];
-      box.clear();
-      box.add(loginResponse);
+      "access token is ${response.data["access_token"]}".printConsole;
+      await CacheHelper.setSecuerString(key: CachedKeys.accessToken, value: response.data["access_token"]);
     } else {
       throw Exception(
         failRefreshToken,
       );
     }
   }
+
+  // Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
+  //   final options = Options(
+  //     method: requestOptions.method,
+  //     headers: requestOptions.headers,
+  //   );
+  //   return _dio!.request<dynamic>(
+  //     requestOptions.path,
+  //     data: requestOptions.data,
+  //     queryParameters: requestOptions.queryParameters,
+  //     options: options,
+  //   );
+  // }
 }

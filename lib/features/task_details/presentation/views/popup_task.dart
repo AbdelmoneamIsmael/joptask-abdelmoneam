@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:popover/popover.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
-import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
-import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 
 class PopUpTask extends StatelessWidget {
   const PopUpTask({

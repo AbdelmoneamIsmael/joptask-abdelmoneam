@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:tasky_abdelmoneam/core/configuration/app_theme.dart';
 import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
-import 'package:tasky_abdelmoneam/core/routes/routes.dart';
-import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 
 class TaskyApp extends StatelessWidget {
   const TaskyApp({super.key});

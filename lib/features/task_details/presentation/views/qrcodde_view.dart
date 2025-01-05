@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
-import 'package:tasky_abdelmoneam/core/utils/generator/app_images.dart';
 
 class TaskQrcodeSliver extends StatelessWidget {
   const TaskQrcodeSliver({

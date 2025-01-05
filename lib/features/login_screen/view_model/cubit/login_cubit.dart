@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
-import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/data/model/login_model.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/view_model/cubit/login_state.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/view_model/login_repo/login_repo.dart';
@@ -39,9 +36,7 @@ class LoginCubit extends Cubit<LoginState> {
         result.fold(
           (l) => emit(LoginFailed(error: l.message)),
           (r) async {
-            var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
-            await box.clear();
-            box.add(r);
+          
             emit(
               LoginSuccess(),
             );
