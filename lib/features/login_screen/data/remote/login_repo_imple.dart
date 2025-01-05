@@ -29,9 +29,7 @@ class LoginRepoImple extends LoginRepo {
   }
 
   void storeKeys(LoginResponse loginResponse) {
-    CacheHelper.flutterSecureStorage
-        .write(key: CachedKeys.accessToken, value: loginResponse.accessToken);
-    CacheHelper.flutterSecureStorage
-        .write(key: CachedKeys.refreshToken, value: loginResponse.refreshToken);
+    CacheHelper.setSecuerString(key: CachedKeys.accessToken, value: loginResponse.accessToken!);
+    CacheHelper.setSecuerString(key: CachedKeys.refreshToken, value: loginResponse.refreshToken!);
   }
 }

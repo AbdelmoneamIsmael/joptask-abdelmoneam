@@ -1,12 +1,13 @@
+
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
   static late SharedPreferences sharedPreference;
-  static late FlutterSecureStorage flutterSecureStorage;
   static Future<void> init() async {
     sharedPreference = await SharedPreferences.getInstance();
-    flutterSecureStorage = const FlutterSecureStorage();
+    
   }
 
   static Future<bool> saveData({
@@ -51,14 +52,16 @@ class CacheHelper {
   /// exampel secure token and passwords
   static Future<void> setSecuerString(
       {required String key, required String value}) async {
+    FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
     await flutterSecureStorage.write(key: key, value: value);
   }
 
   /// get  Strings with Secure
   /// exampel secure token and passwords
-  static Future<String?> getSecuerString({
+  static Future<String> getSecuerString({
     required String key,
   }) async {
+    FlutterSecureStorage flutterSecureStorage = const FlutterSecureStorage();
     return await flutterSecureStorage.read(key: key) ?? "";
   }
 }

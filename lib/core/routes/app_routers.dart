@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
+import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
+import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/core/widgets/loading_overlay.dart';
 import 'package:tasky_abdelmoneam/features/create_task/presentation/screen/create_task.dart';
 import 'package:tasky_abdelmoneam/features/home/presentation/screens/home_screen.dart';
@@ -17,7 +20,7 @@ class PageRoutes {
   PageRoutes._();
 
   static GoRouter router = GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: isAuth ? Routes.home : Routes.onboarding,
     errorBuilder: (context, state) => const ErorPage(),
     routes: [
       GoRoute(
@@ -91,30 +94,3 @@ class ErorPage extends StatelessWidget {
     );
   }
 }
-
-// class AppRouters {
-//   Route onGenerateRoutes(RouteSettings settings) {
-//     switch (settings.name) {
-//       case Routes.home:
-//         return MaterialPageRoute(builder: (_) => const HomeScreen());
-//       case Routes.onboarding:
-//         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
-//       case Routes.loginScreen:
-//         return MaterialPageRoute(builder: (_) => const LoginScreen());
-//       case Routes.registerScreen:
-//         return MaterialPageRoute(builder: (_) => const RegisterScreen());
-//       case Routes.taskDetailsScreen:
-//         return MaterialPageRoute(
-//             builder: (_) => TaskDetailsScreen(
-//                   task: settings.arguments as TaskModel,
-//                 ));
-//       case Routes.editTask:
-//         return MaterialPageRoute(builder: (_) => const EditTaskScreen());
-//       case Routes.profileScreen:
-//         return MaterialPageRoute(builder: (_) => const ProfileScreen());
-
-//       default:
-//         return MaterialPageRoute(builder: (_) => const HomeScreen());
-//     }
-//   }
-// }

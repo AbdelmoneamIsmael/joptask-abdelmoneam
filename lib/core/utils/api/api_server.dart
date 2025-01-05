@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
+import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
+import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_repo.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
@@ -39,6 +41,10 @@ class ApiServer extends ApiRepo {
     _dio!.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
+          String? token =
+              await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+          options.headers["Authorization"] = "Bearer ${token ?? ""}";
+
           return handler.next(options);
         },
         onResponse: (response, handler) async {
@@ -47,8 +53,19 @@ class ApiServer extends ApiRepo {
         onError: (error, handler) async {
           if (error.response?.statusCode == 403 ||
               error.response?.statusCode == 401) {
-            await refreshToken();
+            String token = await refreshToken();
+            if (token.isNotEmpty) {
+              error.requestOptions.headers["Authorization"] = "Bearer $token";
+
+              try {
+                final newResponse = await _dio!.fetch(error.requestOptions);
+                return handler.resolve(newResponse);
+              } catch (e) {
+                return handler.next(error);
+              }
+            }
           }
+
           return handler.next(error);
         },
       ),
@@ -165,29 +182,35 @@ class ApiServer extends ApiRepo {
     return response.data;
   }
 
-  Future<void> refreshToken() async {
+  Future<String> refreshToken() async {
     "---------------------------refreshing token-----------------------------"
         .printConsole;
-    String? accessToken =
-        await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
-    String? refreshToken =
-        await CacheHelper.getSecuerString(key: CachedKeys.refreshToken);
-    Map<String, String> headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $accessToken"
-    };
-    String url = "$baseURl/auth/refresh-token?token=$refreshToken";
-    _dio?.options.headers = headers;
-    var response = await _dio!.get(
-      url,
-    );
-    if (response.statusCode == 200) {
-      "access token is ${response.data["access_token"]}".printConsole;
-      await CacheHelper.setSecuerString(key: CachedKeys.accessToken, value: response.data["access_token"]);
-    } else {
-      throw Exception(
-        failRefreshToken,
+    try {
+      String? accessToken =
+          await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
+      String? refreshToken =
+          await CacheHelper.getSecuerString(key: CachedKeys.refreshToken);
+      Map<String, String> headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken"
+      };
+      String url = "$baseURl/auth/refresh-token?token=$refreshToken";
+      _dio?.options.headers = headers;
+      var response = await _dio!.get(
+        url,
       );
+      if (response.statusCode == 200) {
+        "access token is ${response.data["access_token"]}".printConsole;
+        await CacheHelper.setSecuerString(
+            key: CachedKeys.accessToken, value: response.data["access_token"]);
+        return response.data["access_token"];
+      } else {
+        return "";
+      }
+    } on Exception catch (e) {
+      e.toString().printConsole;
+PageRoutes.router.go(Routes.loginScreen);
+      rethrow;
     }
   }
 
