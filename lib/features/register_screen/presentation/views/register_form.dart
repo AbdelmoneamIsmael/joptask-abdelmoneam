@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/constant/enums.dart';
-import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
+import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
+
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_dropdown.dart';
@@ -35,8 +37,8 @@ class RegisterForm extends StatelessWidget {
                 content: Text("Register Success"),
               ),
             );
-            context.pushNamedAndRemoveUntil(Routes.home,
-                predicate: (_) => false);
+             PageRoutes.clearAndNavigate(Routes.home,
+               );
           } else if (state is FailedRegister) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -145,7 +147,7 @@ class RegisterForm extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => context.pushNamed(Routes.loginScreen),
+                        onTap: () =>GoRouter.of(context).push(Routes.loginScreen),
                         child: Text(
                           "Sign in",
                           style: AppTextStyle.bold.copyWith(

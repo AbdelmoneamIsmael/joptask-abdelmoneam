@@ -16,7 +16,7 @@ import 'package:tasky_abdelmoneam/features/task_details/view_model/repo/task_ope
 final getIt = GetIt.instance; //GetIt
 
 void initializeGetIt() {
-  getIt.registerSingleton<AppRouters>(AppRouters());
+  // getIt.registerSingleton<AppRouters>(AppRouters());
   getIt.registerSingleton<RegisterRepo>(RemoteRegisterImple());
   getIt.registerSingleton<LoginRepo>(LoginRepoImple());
   getIt.registerSingleton<AddTaskRepo>(AddTaskRepoImpl());

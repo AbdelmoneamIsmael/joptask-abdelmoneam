@@ -11,6 +11,8 @@ abstract class AppColors {
   static const textFieldBorderColor = Color(0xFFBABABA);
   static const primaryContainerColor = Color(0xFF5F33E1);
   static const secondaryContainerColor = Color(0xFFEBE5FF);
+  static const unSelectedColor = Color(0xFFF0ECFF);
+  
   static Color captionAlphaColor =
       const Color(0xff24252C).withValues(alpha: .6);
   static Color orangeColor = const Color(0xffFF7D53);

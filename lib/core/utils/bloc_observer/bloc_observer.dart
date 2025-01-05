@@ -1,6 +1,7 @@
-import 'dart:developer';
+
 
 import 'package:bloc/bloc.dart';
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -28,6 +29,3 @@ class MyBlocObserver extends BlocObserver {
   }
 }
 
-extension PrintHelper on String {
-  void get printConsole => log(this);
-}

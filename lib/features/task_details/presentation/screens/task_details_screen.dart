@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
@@ -52,7 +53,7 @@ class TaskDetailsScreen extends StatelessWidget {
             BlocProvider.of<HomeCubit>(context).deleteTask(
               BlocProvider.of<TaskDetalsCubit>(context).task,
             );
-            context.pop();
+            GoRouter.of(context).pop();
           }
           if (state is SuccessEditTask) {
             ScaffoldMessenger.of(context).showSnackBar(

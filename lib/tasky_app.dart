@@ -15,9 +15,8 @@ class TaskyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
-        onGenerateRoute: getIt.get<AppRouters>().onGenerateRoutes,
-        initialRoute: Routes.onboarding,
+      builder: (context, child) => MaterialApp.router(
+        routerConfig: PageRoutes.router,
         debugShowCheckedModeBanner: false,
         title: 'Tasky',
         theme: taskyAppTheme(),

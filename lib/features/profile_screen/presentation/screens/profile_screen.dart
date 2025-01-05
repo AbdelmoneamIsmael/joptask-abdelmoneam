@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
@@ -22,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 22).w,
           child: GestureDetector(
-            onTap: () => context.pop(),
+            onTap: () => GoRouter.of(context).pop(),
             child: SvgPicture.asset(
               AppIcons.backArrow,
               height: 24.h,

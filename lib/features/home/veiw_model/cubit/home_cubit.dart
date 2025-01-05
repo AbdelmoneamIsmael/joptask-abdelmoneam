@@ -5,7 +5,7 @@ import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_state.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
-
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required this.getAllTasksRepo}) : super(HomeInitial());
   final scrollController = ScrollController();
@@ -14,6 +14,13 @@ class HomeCubit extends Cubit<HomeState> {
   int pageNumber = 1;
   int pageSize = 20;
   bool isThereMoreTasks = true;
+  List<String> filters = [
+    "all",
+    "inprogress",
+    "waiting",
+    "finished",
+  ];
+  int selectedFilter = 0;
 
   onInit() async {
     scrollController.addListener(() {
@@ -44,7 +51,10 @@ class HomeCubit extends Cubit<HomeState> {
       emit(LoadingMoreTasks());
     }
     try {
-      var result = await getAllTasksRepo.getAllTasks(pageNumber: pageNumber);
+      var result = await getAllTasksRepo.getAllTasks(
+        pageNumber: pageNumber,
+        status: selectedFilter == 0 ? null : filters[selectedFilter],
+      );
       result.fold(
         (failure) => emit(FaiGetAllTasks(message: failure.message)),
         (success) {
@@ -81,5 +91,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void editTask() {
     emit(EditTask());
+  }
+
+  void changeFilter(int index) {
+    selectedFilter = index;
+    refresh();
+    emit(ChangeFilter());
   }
 }

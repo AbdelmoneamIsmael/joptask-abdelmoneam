@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/models/login_response.dart';
-import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
-
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 import 'package:tasky_abdelmoneam/features/home/presentation/views/home_body.dart';
 import 'package:tasky_abdelmoneam/features/home/presentation/views/home_floating_actions.dart';
 
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           GestureDetector(
               onTap: () {
-                context.pushNamed(Routes.profileScreen);
+                GoRouter.of(context).push(Routes.profileScreen);
               },
               child: SvgPicture.asset(AppIcons.profileIcon)),
           20.horizontalSpace,

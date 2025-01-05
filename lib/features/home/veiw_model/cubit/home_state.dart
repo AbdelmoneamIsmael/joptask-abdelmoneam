@@ -16,3 +16,4 @@ final class FaiGetAllTasks extends HomeState {
 final class DeleteTask extends HomeState {}
 
 final class EditTask extends HomeState {}
+final class ChangeFilter extends HomeState {}

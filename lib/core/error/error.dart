@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
-
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 abstract class Failure {
   Failure(this.message);
   final String message;

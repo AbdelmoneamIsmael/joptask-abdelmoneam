@@ -5,8 +5,8 @@ import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
 import 'package:tasky_abdelmoneam/core/models/login_response.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_repo.dart';
-import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
+import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 
 class ApiServer extends ApiRepo {
   //singlton

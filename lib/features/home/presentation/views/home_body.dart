@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
-import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
+
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/widgets/task_widget.dart';
@@ -47,9 +48,12 @@ class HomeBody extends StatelessWidget {
                 SliverList.builder(
                   itemBuilder: (context, index) => TaskWidget(
                     task: cubit.tasks[index],
-                    onTap: () => context.pushNamed(
+                    onTap: () => GoRouter.of(context).push(
                       Routes.taskDetailsScreen,
-                      arguments: cubit.tasks[index],
+                      extra: {
+                        'task': cubit.tasks[index],
+                        "cubit":context.read<HomeCubit>(),
+                      },
                     ),
                   ),
                   itemCount: cubit.tasks.length,

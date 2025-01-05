@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
+import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
@@ -30,9 +32,9 @@ class LoginFormSection extends StatelessWidget {
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              context.pushNamedAndRemoveUntil(
+             PageRoutes.clearAndNavigate(
                 Routes.home,
-                predicate: (_) => false,
+                
               );
             } else if (state is LoginFailed) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -102,7 +104,7 @@ class LoginFormSection extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => context.pushNamed(Routes.registerScreen),
+                        onTap: () => GoRouter.of(context).push(Routes.registerScreen),
                         child: Text(
                           "Sign Up here",
                           style: AppTextStyle.bold.copyWith(
