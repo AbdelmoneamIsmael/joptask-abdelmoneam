@@ -37,7 +37,24 @@ class ApiServer extends ApiRepo {
 
   //----------------------------------------------------------------------------
   ///add interceptors
-  void addInterceptors() {}
+  void addInterceptors() {
+    _dio!.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          return handler.next(options);
+        },
+        onResponse: (response, handler) async {
+          return handler.next(response);
+        },
+        onError: (e, handler) async {
+          if (e.response?.statusCode == 401) {
+            await refreshToken();
+          }
+          return handler.next(e);
+        },
+      ),
+    );
+  }
 
   /// get request from api
   @override
@@ -60,6 +77,9 @@ class ApiServer extends ApiRepo {
     _dio!.options.headers = headers;
 
     Response response = await _dio!.get(url);
+    if (response.data is! Map<String, dynamic>) {
+      return {"data": response.data};
+    }
     return response.data;
   }
 

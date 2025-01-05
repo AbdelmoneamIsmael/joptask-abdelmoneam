@@ -1,3 +1,7 @@
+import 'package:flutter/scheduler.dart';
+import 'package:tasky_abdelmoneam/core/constant/enums.dart';
+import 'package:tasky_abdelmoneam/core/utils/functions/enum_function.dart';
+
 class TaskModel {
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
@@ -5,8 +9,8 @@ class TaskModel {
       image: json["image"],
       title: json["title"],
       desc: json["desc"],
-      priority: json["priority"],
-      status: json["status"],
+      priority: convertTaskPriorityFromString(json["priority"]),
+      status: convertTaskStatusFromString(json["status"]),
       user: json["user"],
       createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
@@ -30,8 +34,8 @@ class TaskModel {
   String? image;
   String? title;
   String? desc;
-  String? priority;
-  String? status;
+  TaskPiriorty? priority;
+  TaskStatus? status;
   String? user;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -42,8 +46,8 @@ class TaskModel {
     String? image,
     String? title,
     String? desc,
-    String? priority,
-    String? status,
+    TaskPiriorty? priority,
+    TaskStatus? status,
     String? user,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -68,8 +72,8 @@ class TaskModel {
         "image": image,
         "title": title,
         "desc": desc,
-        "priority": priority,
-        "status": status,
+        "priority": priority!.name,
+        "status": status!.name,
         "user": user,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),

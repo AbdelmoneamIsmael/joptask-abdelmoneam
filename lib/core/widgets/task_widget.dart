@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
-import 'package:tasky_abdelmoneam/core/utils/generator/app_images.dart';
+import 'package:tasky_abdelmoneam/core/models/task_model.dart';
+import 'package:tasky_abdelmoneam/core/utils/functions/enum_function.dart';
+
+import 'package:tasky_abdelmoneam/core/widgets/cashed_images.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget({
     super.key,
     this.onTap,
+    required this.task,
   });
   final void Function()? onTap;
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +27,11 @@ class TaskWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 12.w,
           children: [
-            const Image(),
-            const Details(),
+            const Image(
+              url:
+                  "https://fps.cdnpk.net/images/home/subhome-ai.webp?w=649&h=649",
+            ),
+            Details(task: task),
             const Icon(Icons.more_vert),
           ],
         ),
@@ -34,18 +43,21 @@ class TaskWidget extends StatelessWidget {
 class Details extends StatelessWidget {
   const Details({
     super.key,
+    required this.task,
   });
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Expanded(
                 child: Text(
-                  "Grocery Shopping App",
+                  task.title ?? "Grocery Shopping App",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium,
@@ -71,7 +83,8 @@ class Details extends StatelessWidget {
           ),
           4.verticalSpace,
           Text(
-            "This application is designed for super shops. By using ",
+            task.desc ??
+                "This application is designed for super shops. By using ",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -84,7 +97,7 @@ class Details extends StatelessWidget {
               Icon(Icons.flag_outlined, size: 16.sp, color: AppColors.primary),
               4.horizontalSpace,
               Text(
-                "Medium",
+                convertTaskPeriorityToString(task.priority!),
                 style: AppTextStyle.meduim.copyWith(
                   color: AppColors.primary,
                   fontSize: 12.sp,
@@ -93,7 +106,8 @@ class Details extends StatelessWidget {
               ),
               const Expanded(child: SizedBox()),
               Text(
-                "12/12/2023",
+                DateFormat("dd/MM/yyyy")
+                    .format(task.updatedAt ?? DateTime.now()),
                 style: AppTextStyle.regular.copyWith(
                   color: AppColors.captionAlphaColor,
                   fontSize: 12.sp,
@@ -111,21 +125,18 @@ class Details extends StatelessWidget {
 class Image extends StatelessWidget {
   const Image({
     super.key,
+    required this.url,
   });
+  final String url;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 64.h,
-      width: 64.w,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage(
-            AppImages.defaultTaskImage,
-          ),
-          fit: BoxFit.contain,
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(32.r),
+      child: SizedBox(
+        height: 64.h,
+        width: 64.w,
+        child: CachedImage(url: url),
       ),
     );
   }
