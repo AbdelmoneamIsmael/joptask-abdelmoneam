@@ -6,14 +6,20 @@ import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_state.dart
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/log_out_repo.dart';
+import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/search_repo.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit({required this.getAllTasksRepo, required this.logOutRepo})
+  HomeCubit(
+      {required this.getAllTasksRepo,
+      required this.logOutRepo,
+      required this.searchRepo})
       : super(HomeInitial());
   final scrollController = ScrollController();
   final GetAllTasksRepo getAllTasksRepo;
   final LogOutRepo logOutRepo;
+  final SearchRepo searchRepo;
   List<TaskModel> tasks = [];
+
   int pageNumber = 1;
   int pageSize = 20;
   bool isThereMoreTasks = true;
@@ -26,18 +32,20 @@ class HomeCubit extends Cubit<HomeState> {
   int selectedFilter = 0;
 
   onInit() async {
-    scrollController.addListener(() {
-      if (scrollController.hasClients) {
-        double currentPosition = scrollController.position.pixels;
-        double maxScrollExtent = scrollController.position.maxScrollExtent;
-        double seventyPercentOffset = maxScrollExtent * 0.7;
-        if (currentPosition >= seventyPercentOffset &&
-            state is! LoadingMoreTasks &&
-            isThereMoreTasks) {
-          featchAllTsks();
+    scrollController.addListener(
+      () {
+        if (scrollController.hasClients) {
+          double currentPosition = scrollController.position.pixels;
+          double maxScrollExtent = scrollController.position.maxScrollExtent;
+          double seventyPercentOffset = maxScrollExtent * 0.7;
+          if (currentPosition >= seventyPercentOffset &&
+              state is! LoadingMoreTasks &&
+              isThereMoreTasks) {
+            featchAllTsks();
+          }
         }
-      }
-    });
+      },
+    );
     featchAllTsks();
   }
 
@@ -114,6 +122,25 @@ class HomeCubit extends Cubit<HomeState> {
       );
     } on Exception catch (e) {
       emit(FaiLogout(message: e.toString()));
+    }
+  }
+
+  Future<void> search(String res) async {
+    emit(LoadingSearch());
+    try {
+      var result = await searchRepo.searchTask(id: res);
+      result.fold(
+        (failure) => emit(
+          GEttingSearchFail(message: failure.message),
+        ),
+        (success) => emit(
+          GEttingSearchSuccess(
+            task: success,
+          ),
+        ),
+      );
+    } on Exception catch (e) {
+      emit(GEttingSearchFail(message: e.toString()));
     }
   }
 }

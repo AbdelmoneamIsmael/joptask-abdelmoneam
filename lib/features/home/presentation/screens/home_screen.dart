@@ -14,6 +14,7 @@ import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_cubit.dart
 import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_state.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/log_out_repo.dart';
+import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/search_repo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit(
         getAllTasksRepo: getIt.get<GetAllTasksRepo>(),
         logOutRepo: getIt.get<LogOutRepo>(),
+        searchRepo:  getIt.get<SearchRepo>(),
       )..onInit(),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {

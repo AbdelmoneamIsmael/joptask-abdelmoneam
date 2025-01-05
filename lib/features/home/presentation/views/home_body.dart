@@ -54,23 +54,27 @@ class HomeBody extends StatelessWidget {
                       ),
                       itemCount: cubit.tasks.length,
                     )
-                  : SliverFillRemaining(
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(AppIcons.noTasks),
-                            const Text(
-                              "No Tasks",
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
+                  : state is LoadingAllTasks || state is LoadingMoreTasks
+                      ? const SliverToBoxAdapter(
+                          child: SizedBox(),
+                        )
+                      : SliverFillRemaining(
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(AppIcons.noTasks),
+                                const Text(
+                                  "No Tasks",
+                                  style: TextStyle(
+                                    color: AppColors.primary,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
               SliverToBoxAdapter(
                 child: state is LoadingAllTasks || state is LoadingMoreTasks
                     ? const Padding(

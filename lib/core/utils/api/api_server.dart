@@ -97,6 +97,7 @@ class ApiServer extends ApiRepo {
     if (response.data is! Map<String, dynamic>) {
       return {"data": response.data};
     }
+
     return response.data;
   }
 
