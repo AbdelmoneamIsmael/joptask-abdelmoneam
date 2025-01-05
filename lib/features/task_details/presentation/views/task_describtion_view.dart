@@ -5,9 +5,9 @@ import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 
 class TaskDiscribtionsSliver extends StatelessWidget {
   const TaskDiscribtionsSliver({
-    super.key,
+    super.key, required this.describtion,
   });
-
+  final String describtion;
   @override
   Widget build(BuildContext context) {
     return SliverPadding(

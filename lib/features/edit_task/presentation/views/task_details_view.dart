@@ -12,6 +12,7 @@ import 'package:tasky_abdelmoneam/core/widgets/app_secondry_drop_down.dart';
 import 'package:tasky_abdelmoneam/core/widgets/app_textfield.dart';
 import 'package:tasky_abdelmoneam/core/widgets/get_image_mixin.dart';
 import 'package:tasky_abdelmoneam/core/widgets/login_button.dart';
+import 'package:tasky_abdelmoneam/core/widgets/show_date_time.dart';
 import 'package:tasky_abdelmoneam/features/edit_task/presentation/widgets/widget_with_title.dart';
 import 'package:tasky_abdelmoneam/features/edit_task/view_model/cubit/edit_task_cubit.dart';
 import 'package:tasky_abdelmoneam/features/edit_task/view_model/cubit/edit_task_state.dart';
@@ -195,31 +196,5 @@ class TaskDetailsView extends StatelessWidget {
     );
   }
 
-  Future<DateTime?> showDate(
-    BuildContext context,
-  ) async {
-    return await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2022, 6),
-      lastDate: DateTime(2101),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
-              primary: Theme.of(context).primaryColor,
-              onPrimary: Colors.white,
-              onSurface: AppColors.normalTextColor,
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.black,
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
-  }
+  
 }

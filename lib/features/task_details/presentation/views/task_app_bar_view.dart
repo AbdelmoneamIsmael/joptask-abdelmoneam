@@ -5,13 +5,14 @@ import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
 import 'package:tasky_abdelmoneam/core/routes/context_extention.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_images.dart';
+import 'package:tasky_abdelmoneam/core/widgets/cashed_images.dart';
 import 'package:tasky_abdelmoneam/features/task_details/presentation/views/popup_task.dart';
 
 class ScreenAppBar extends StatelessWidget {
   const ScreenAppBar({
-    super.key,
+    super.key, required this.image,
   });
-
+  final String image;
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -43,15 +44,11 @@ class ScreenAppBar extends StatelessWidget {
 
       bottom: PreferredSize(
         preferredSize: Size.fromHeight((225 + 30).h),
-        child: Container(
+        child: SizedBox(
           height: 255.h,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppImages.defaultTaskImage),
-              fit: BoxFit.cover,
-            ),
+          child:CachedImage(url: image) ,
           ),
-        ),
+        
       ),
     );
   }

@@ -47,7 +47,10 @@ class HomeBody extends StatelessWidget {
                 SliverList.builder(
                   itemBuilder: (context, index) => TaskWidget(
                     task: cubit.tasks[index],
-                    onTap: () => context.pushNamed(Routes.taskDetailsScreen),
+                    onTap: () => context.pushNamed(
+                      Routes.taskDetailsScreen,
+                      arguments: cubit.tasks[index],
+                    ),
                   ),
                   itemCount: cubit.tasks.length,
                 ),

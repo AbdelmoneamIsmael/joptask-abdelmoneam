@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/features/edit_task/presentation/screen/edit_task_screen.dart';
 import 'package:tasky_abdelmoneam/features/home/presentation/screens/home_screen.dart';
@@ -20,7 +21,10 @@ class AppRouters {
       case Routes.registerScreen:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case Routes.taskDetailsScreen:
-        return MaterialPageRoute(builder: (_) => const TaskDetailsScreen());
+        return MaterialPageRoute(
+            builder: (_) => TaskDetailsScreen(
+                  task: settings.arguments as TaskModel,
+                ));
       case Routes.editTask:
         return MaterialPageRoute(builder: (_) => const EditTaskScreen());
       case Routes.profileScreen:
