@@ -127,9 +127,20 @@ class ApiServer extends ApiRepo {
       {required String endPoint,
       Object? data,
       String? token,
-      String? contentType}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+      String? contentType}) async {
+    Map<String, String> headers = {
+      "Content-Type": contentType ?? "application/json",
+    };
+    headers.addAll({
+      "Authorization": "Bearer $token",
+    });
+    String url = "$baseURl$endPoint";
+    _dio?.options.headers = headers;
+    var response = await _dio!.delete(
+      url,
+      data: data,
+    );
+    return response.data;
   }
 
   @override
@@ -137,8 +148,20 @@ class ApiServer extends ApiRepo {
       {required String endPoint,
       Object? data,
       String? token,
-      String? contentType}) {
-    throw UnimplementedError();
+      String? contentType}) async {
+    Map<String, String> headers = {
+      "Content-Type": contentType ?? "application/json",
+    };
+    headers.addAll({
+      "Authorization": "Bearer $token",
+    });
+    String url = "$baseURl$endPoint";
+    _dio?.options.headers = headers;
+    var response = await _dio!.put(
+      url,
+      data: data,
+    );
+    return response.data;
   }
 
   Future<void> refreshToken() async {

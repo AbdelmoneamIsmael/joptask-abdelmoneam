@@ -12,11 +12,12 @@ class AppSecondryDropDown extends StatelessWidget {
       required this.items,
       required this.onChanged,
       required this.hint,
-      this.prefexIcon});
+      this.prefexIcon, this.value});
   final List<DropdownMenuItem> items;
   final void Function(dynamic) onChanged;
   final String hint;
   final Widget? prefexIcon;
+  final dynamic value;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,7 @@ class AppSecondryDropDown extends StatelessWidget {
         color: AppColors.primaryContainerColor,
         height: 1.25,
       ),
+      value: value ,
       validator: (value) => value == null ? 'Please enter $hint' : null,
       isDense: true,
       items: items,

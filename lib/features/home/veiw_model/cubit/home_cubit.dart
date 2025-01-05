@@ -71,4 +71,15 @@ class HomeCubit extends Cubit<HomeState> {
 
     await featchAllTsks();
   }
+
+  void deleteTask(
+    TaskModel task,
+  ) {
+    tasks.removeWhere((element) => element.id == task.id);
+    emit(DeleteTask());
+  }
+
+  void editTask() {
+    emit(EditTask());
+  }
 }

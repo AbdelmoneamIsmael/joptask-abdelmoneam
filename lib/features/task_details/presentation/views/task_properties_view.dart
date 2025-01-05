@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
+import 'package:tasky_abdelmoneam/core/constant/enums.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
+import 'package:tasky_abdelmoneam/core/widgets/app_secondry_drop_down.dart';
 import 'package:tasky_abdelmoneam/core/widgets/secondry_container.dart';
 import 'package:tasky_abdelmoneam/core/widgets/show_date_time.dart';
 import 'package:tasky_abdelmoneam/features/task_details/view_model/cubit/task_detals_cubit.dart';
@@ -61,46 +62,43 @@ class TaskPropertiesSliver extends StatelessWidget {
                     ],
                   ),
                 ),
-                SecondaryContainer(
-                  padding: EdgeInsets.only(
-                      top: 15.h, bottom: 15.h, left: 24.w, right: 13.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Inprogress",
-                        style: AppTextStyle.bold.copyWith(
-                            color: AppColors.primary,
-                            fontSize: 16.sp,
-                            height: 1.25),
-                      ),
-                      SvgPicture.asset(AppIcons.arrowDown),
-                    ],
-                  ),
+                AppSecondryDropDown(
+                  value: cubit.task.status,
+                  items: TaskStatus.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e.name),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    TaskStatus status = value!;
+                    cubit.task.status = status;
+                  },
+                  hint: "choose status...",
                 ),
-                SecondaryContainer(
-                  padding: EdgeInsets.only(
-                      top: 15.h, bottom: 15.h, left: 24.w, right: 13.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(
-                        AppIcons.priorityIcon,
-                        width: 24.w,
-                        height: 24.h,
-                      ),
-                      10.horizontalSpace,
-                      Text(
-                        "Medium Priority",
-                        style: AppTextStyle.bold.copyWith(
-                            color: AppColors.primary,
-                            fontSize: 16.sp,
-                            height: 1.25),
-                      ),
-                      const Spacer(),
-                      SvgPicture.asset(AppIcons.arrowDown),
-                    ],
+                8.verticalSpace,
+                AppSecondryDropDown(
+                  prefexIcon: SvgPicture.asset(
+                    AppIcons.priorityIcon,
+                    width: 24.w,
+                    fit: BoxFit.scaleDown,
                   ),
+                  value: cubit.task.priority,
+                  items: TaskPiriorty.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e.name),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    TaskPiriorty priority = value!;
+                    cubit.task.priority = priority;
+                  },
+                  hint: "choose priority...",
                 ),
               ],
             ),

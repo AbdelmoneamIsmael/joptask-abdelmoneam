@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
+import 'package:tasky_abdelmoneam/core/constant/enums.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/enum_function.dart';
 
@@ -64,20 +65,8 @@ class Details extends StatelessWidget {
                 ),
               ),
               8.horizontalSpace,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                decoration: BoxDecoration(
-                  color: const Color(0xffFFE4F2),
-                  borderRadius: BorderRadius.circular(5.r),
-                ),
-                child: Text(
-                  "Waiting",
-                  style: AppTextStyle.regular.copyWith(
-                    color: const Color(0xffFF7D53),
-                    fontSize: 12.sp,
-                    height: 1.2,
-                  ),
-                ),
+              StatusWidget(
+                status: task.status!,
               ),
             ],
           ),
@@ -117,6 +106,32 @@ class Details extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class StatusWidget extends StatelessWidget {
+  const StatusWidget({
+    super.key,
+    required this.status,
+  });
+  final TaskStatus status;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+      decoration: BoxDecoration(
+        color: AppColors.getStatusContainerColor(status),
+        borderRadius: BorderRadius.circular(5.r),
+      ),
+      child: Text(
+        convertTaskStatusToString(status),
+        style: AppTextStyle.regular.copyWith(
+          color: AppColors.getStatusTextColor(status),
+          fontSize: 12.sp,
+          height: 1.2,
+        ),
       ),
     );
   }

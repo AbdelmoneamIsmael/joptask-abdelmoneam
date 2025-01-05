@@ -10,8 +10,10 @@ import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 class PopUpTask extends StatelessWidget {
   const PopUpTask({
     super.key,
+    this.onEditTap,
+    this.onDeleteTap,
   });
-
+  final void Function()? onEditTap, onDeleteTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,9 +32,7 @@ class PopUpTask extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CupertinoButton(
-                    onPressed: () {
-                      context.pushNamed(Routes.editTask);
-                    },
+                    onPressed: onEditTap,
                     padding: EdgeInsets.symmetric(vertical: 12.5.h),
                     minSize: 0,
                     child: Text(
@@ -50,7 +50,7 @@ class PopUpTask extends StatelessWidget {
                       color: AppColors.captionAlphaColor,
                     ))),
                     child: CupertinoButton(
-                      onPressed: () {},
+                      onPressed: onDeleteTap,
                       minSize: 0,
                       padding: EdgeInsets.symmetric(vertical: 12.5.h),
                       child: Text(
