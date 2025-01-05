@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/shared_keys.dart';
+import 'package:tasky_abdelmoneam/core/models/login_response.dart';
+import 'package:tasky_abdelmoneam/core/utils/api/api_repo.dart';
 import 'package:tasky_abdelmoneam/core/utils/bloc_observer/bloc_observer.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
 
-class ApiServer {
+class ApiServer extends ApiRepo {
   //singlton
   ApiServer._internal() {
     _dio = Dio(
@@ -16,12 +19,15 @@ class ApiServer {
         receiveTimeout: const Duration(seconds: 60),
       ),
     );
+    addInterceptors();
   }
 
   factory ApiServer() {
     _instance ??= ApiServer._internal();
+
     return _instance!;
   }
+
   static ApiServer? _instance;
   Dio? _dio;
 
@@ -30,9 +36,12 @@ class ApiServer {
   Dio get dio => _dio!;
 
   //----------------------------------------------------------------------------
+  ///add interceptors
+  void addInterceptors() {}
 
   /// get request from api
-  Future<Map<String, dynamic>> get({
+  @override
+  Future<Map<String, dynamic>> getRequest({
     required String uri,
     String? lang,
     Map<String, String>? additionalHeaders,
@@ -56,6 +65,7 @@ class ApiServer {
 
   ///cheek internet connection
 
+  @override
   Future<bool> cheekInterentConnection() async {
     try {
       final foo = await InternetAddress.lookup('google.com');
@@ -66,6 +76,7 @@ class ApiServer {
   }
 
   /// post request from api
+  @override
   Future<Map<String, dynamic>> post({
     required String endPoint,
     Object? data,
@@ -89,5 +100,50 @@ class ApiServer {
 
     response.statusCode.toString().printConsole;
     return response.data;
+  }
+
+  @override
+  Future<Map<String, dynamic>> delete(
+      {required String endPoint,
+      Object? data,
+      String? token,
+      String? contentType}) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Map<String, dynamic>> put(
+      {required String endPoint,
+      Object? data,
+      String? token,
+      String? contentType}) {
+    throw UnimplementedError();
+  }
+
+  Future<void> refreshToken() async {
+    "---------------------------refreshing token-----------------------------"
+        .printConsole;
+    var box = Hive.box<LoginResponse>(CachedKeys.loginResponse);
+    LoginResponse? loginResponse = box.getAt(0);
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${loginResponse!.accessToken}"
+    };
+    String url =
+        "$baseURl/auth/refresh-token?token=${loginResponse.refreshToken}";
+    _dio?.options.headers = headers;
+    var response = await _dio!.get(
+      url,
+    );
+    if (response.statusCode == 200) {
+      loginResponse.accessToken = response.data["access_token"];
+      box.clear();
+      box.add(loginResponse);
+    } else {
+      throw Exception(
+        failRefreshToken,
+      );
+    }
   }
 }
