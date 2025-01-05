@@ -6,6 +6,8 @@ import 'package:tasky_abdelmoneam/features/home/data/remote/gett_all_tasks_repo_
 import 'package:tasky_abdelmoneam/features/home/veiw_model/repo/get_all_tasks.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/data/remote/login_repo_imple.dart';
 import 'package:tasky_abdelmoneam/features/login_screen/view_model/login_repo/login_repo.dart';
+import 'package:tasky_abdelmoneam/features/profile_screen/data/remote_data/get_user_info.dart';
+import 'package:tasky_abdelmoneam/features/profile_screen/view_model/repo/get_profile_data.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/data/remote_register/remote_register_imple.dart';
 import 'package:tasky_abdelmoneam/features/register_screen/view_model/repo/register_repo.dart';
 
@@ -17,5 +19,6 @@ void initializeGetIt() {
   getIt.registerSingleton<LoginRepo>(LoginRepoImple());
   getIt.registerSingleton<AddTaskRepo>(AddTaskRepoImpl());
   getIt.registerSingleton<GetAllTasksRepo>(GettAllTasksRepoImple());
+  getIt.registerSingleton<GetProfileData>(GetUserInfo());
 
 }

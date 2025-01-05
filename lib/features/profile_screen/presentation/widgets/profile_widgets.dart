@@ -8,9 +8,11 @@ class ProfileWidget extends StatelessWidget {
     required this.name,
     required this.value,
     this.suffix,
+    this.phoneNumber,
   });
   final String name, value;
   final Widget? suffix;
+  final Widget? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,15 @@ class ProfileWidget extends StatelessWidget {
                     color: const Color(0xff2F2F2F).withValues(alpha: .4),
                   ),
                 ),
-                Text(
-                  value,
-                  style: AppTextStyle.bold.copyWith(
-                    fontSize: 18.sp,
-                    height: 1.3,
-                    color: const Color(0xff2F2F2F).withValues(alpha: .6),
-                  ),
-                ),
+                phoneNumber ??
+                    Text(
+                      value,
+                      style: AppTextStyle.bold.copyWith(
+                        fontSize: 18.sp,
+                        height: 1.3,
+                        color: const Color(0xff2F2F2F).withValues(alpha: .6),
+                      ),
+                    ),
               ],
             ),
           ),
