@@ -11,6 +11,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion(
         value: const SystemUiOverlayStyle(
           statusBarColor: AppColors.backgroundColor,
@@ -37,6 +38,7 @@ class RegisterScreen extends StatelessWidget {
               bottom: 32.h,
               left: 0,
               right: 0,
+              top: 100.h,
               child: const RegisterForm(),
             ),
           ],

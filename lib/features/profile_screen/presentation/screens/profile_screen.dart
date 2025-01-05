@@ -95,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               ProfileWidget(
                                 name: 'LEVEL',
-                                value: state.userModel.level.name.capitalize ,
+                                value: state.userModel.level.name.capitalize,
                               ),
                               ProfileWidget(
                                 name: 'YEAR OF EXPERIENCE',

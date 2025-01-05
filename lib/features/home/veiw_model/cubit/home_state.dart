@@ -17,3 +17,9 @@ final class DeleteTask extends HomeState {}
 
 final class EditTask extends HomeState {}
 final class ChangeFilter extends HomeState {}
+final class LoadingLogout extends HomeState {}
+final class LogoutSuccess extends HomeState {}
+final class FaiLogout extends HomeState {
+  FaiLogout({required this.message});
+  final String message;
+}

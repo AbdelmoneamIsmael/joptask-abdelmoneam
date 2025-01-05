@@ -37,8 +37,9 @@ class RegisterForm extends StatelessWidget {
                 content: Text("Register Success"),
               ),
             );
-             PageRoutes.clearAndNavigate(Routes.home,
-               );
+            PageRoutes.clearAndNavigate(
+              Routes.home,
+            );
           } else if (state is FailedRegister) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -50,117 +51,124 @@ class RegisterForm extends StatelessWidget {
         },
         builder: (context, state) {
           final cubit = BlocProvider.of<RegisterCubit>(context);
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.5).w,
-            child: Form(
-              key: cubit.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Register",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  24.verticalSpace,
-                  Column(
-                    spacing: 15.h,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppTextField(
-                        controller: cubit.nameController,
-                        hint: "Name...",
-                      ),
-                      AppTextField(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        keyboardType: TextInputType.phone,
-                        controller: cubit.phoneController,
-                        hint: "Phone Number...",
-                        prefixIcon: CountryCodeIcon(
-                          onChanged: (code) {
-                            
-                            cubit.countryCode = code.dialCode!;
-                          },
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            reverse: true,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.5).w,
+              child: Form(
+                key: cubit.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Register",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    24.verticalSpace,
+                    Column(
+                      spacing: 15.h,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppTextField(
+                          controller: cubit.nameController,
+                          hint: "Name...",
                         ),
-                      ),
-                      AppTextField(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        keyboardType: TextInputType.number,
-                        controller: cubit.yearsExperienceController,
-                        hint: "Years of Experience...",
-                      ),
-                      AppDropdown(
-                        hint: "Choose experience Level...",
-                        onChanged: (value) {
-                          PersonLevel level = value!;
-                          cubit.experienceLevelController.text = level.name;
-                        },
-                        items: PersonLevel.values
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      AppTextField(
-                        controller: cubit.addressController,
-                        hint: "Address...",
-                      ),
-                      AppTextField(
-                        isPassword: cubit.passwordOffVisible,
-                        controller: cubit.passwordController,
-                        hint: "Password...",
-                        suffixIcon: GestureDetector(
-                          onTap: cubit.changePasswordVisibility,
-                          child: cubit.passwordOffVisible
-                              ? const Icon(
-                                  Icons.visibility_off_outlined,
-                                )
-                              : const Icon(
-                                  Icons.remove_red_eye_outlined,
-                                ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  24.verticalSpace,
-                  state is LoadingRegister
-                      ? const LoadingButton()
-                      : ElevatedButton(
-                          onPressed: cubit.register,
-                          child: const Text("Sign Up"),
-                        ),
-                  24.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already have any account? ",
-                        style: AppTextStyle.regular.copyWith(
-                          fontSize: 14.sp,
-                          color: AppColors.captionTextColor,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () =>GoRouter.of(context).push(Routes.loginScreen),
-                        child: Text(
-                          "Sign in",
-                          style: AppTextStyle.bold.copyWith(
-                            fontSize: 14.sp,
-                            color: AppColors.primary,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.primary,
+                        AppTextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          keyboardType: TextInputType.phone,
+                          controller: cubit.phoneController,
+                          hint: "Phone Number...",
+                          prefixIcon: CountryCodeIcon(
+                            onChanged: (code) {
+                              cubit.countryCode = code.dialCode!;
+                            },
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        AppTextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          keyboardType: TextInputType.number,
+                          controller: cubit.yearsExperienceController,
+                          hint: "Years of Experience...",
+                        ),
+                        AppDropdown(
+                          hint: "Choose experience Level...",
+                          onChanged: (value) {
+                            PersonLevel level = value!;
+                            cubit.experienceLevelController.text = level.name;
+                          },
+                          items: PersonLevel.values
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.name),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        AppTextField(
+                          controller: cubit.addressController,
+                          hint: "Address...",
+                        ),
+                        AppTextField(
+                          isPassword: cubit.passwordOffVisible,
+                          controller: cubit.passwordController,
+                          hint: "Password...",
+                          suffixIcon: GestureDetector(
+                            onTap: cubit.changePasswordVisibility,
+                            child: cubit.passwordOffVisible
+                                ? const Icon(
+                                    Icons.visibility_off_outlined,
+                                  )
+                                : const Icon(
+                                    Icons.remove_red_eye_outlined,
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    24.verticalSpace,
+                    state is LoadingRegister
+                        ? const LoadingButton()
+                        : ElevatedButton(
+                            onPressed: cubit.register,
+                            child: const Text("Sign Up"),
+                          ),
+                    24.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already have any account? ",
+                          style: AppTextStyle.regular.copyWith(
+                            fontSize: 14.sp,
+                            color: AppColors.captionTextColor,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () =>
+                              GoRouter.of(context).push(Routes.loginScreen),
+                          child: Text(
+                            "Sign in",
+                            style: AppTextStyle.bold.copyWith(
+                              fontSize: 14.sp,
+                              color: AppColors.primary,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).viewInsets.bottom,
+                    )
+                  ],
+                ),
               ),
             ),
           );

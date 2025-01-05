@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_text_style.dart';
+import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/constant/enums.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/enum_function.dart';
@@ -28,9 +29,8 @@ class TaskWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 12.w,
           children: [
-            const Image(
-              url:
-                  "https://fps.cdnpk.net/images/home/subhome-ai.webp?w=649&h=649",
+            Image(
+              url: task.image!,
             ),
             Details(task: task),
             const Icon(Icons.more_vert),
@@ -151,7 +151,7 @@ class Image extends StatelessWidget {
       child: SizedBox(
         height: 64.h,
         width: 64.w,
-        child: CachedImage(url: url),
+        child: CachedImage(url: "$imageUrl$url"),
       ),
     );
   }

@@ -14,7 +14,8 @@ class AppTextField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.inputFormatters,
-    this.keyboardType, this.readOnly,
+    this.keyboardType,
+    this.readOnly,
   });
   final String hint;
   final bool? isPassword, readOnly;
@@ -26,9 +27,9 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      // onTapOutside: (event) => FocusScope.of(context).unfocus(),
       controller: controller,
-      readOnly:readOnly ?? false,
+      readOnly: readOnly ?? false,
       obscureText: isPassword!,
       maxLines: maxLines,
       inputFormatters: inputFormatters,

@@ -37,7 +37,7 @@ mixin ImageMixin {
 
     if (result != null) {
       isNoPhoto = false;
-      return await _compressFile(File(result.path), targetPath: result.path);
+      return await _compressFile(File(result.path),);
     } else {
       return File("assets/images/logo.png");
     }
@@ -53,7 +53,6 @@ mixin ImageMixin {
     );
 
     if (result != null) {
-
       return result;
     } else {
       throw Exception('Image compression failed');

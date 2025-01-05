@@ -43,7 +43,7 @@ class ApiServer extends ApiRepo {
         onRequest: (options, handler) async {
           String? token =
               await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
-          options.headers["Authorization"] = "Bearer ${token ?? ""}";
+          options.headers["Authorization"] = "Bearer $token ";
 
           return handler.next(options);
         },
@@ -124,7 +124,7 @@ class ApiServer extends ApiRepo {
         await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
     headers.addAll(
       {
-        "Authorization": token == null ? "" : "Bearer $token",
+        "Authorization": "Bearer $token",
         "Content-Type": contentType ?? "application/json",
       },
     );
@@ -144,11 +144,11 @@ class ApiServer extends ApiRepo {
   Future<Map<String, dynamic>> delete(
       {required String endPoint, Object? data, String? contentType}) async {
     Map<String, String> headers = {};
-    String? token =
+    String token =
         await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
     headers.addAll(
       {
-        "Authorization": token == null ? "" : "Bearer $token",
+        "Authorization": "Bearer $token",
         "Content-Type": contentType ?? "application/json",
       },
     );
@@ -169,7 +169,7 @@ class ApiServer extends ApiRepo {
         await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
     headers.addAll(
       {
-        "Authorization": token == null ? "" : "Bearer $token",
+        "Authorization": "Bearer $token",
         "Content-Type": contentType ?? "application/json",
       },
     );
@@ -205,11 +205,12 @@ class ApiServer extends ApiRepo {
             key: CachedKeys.accessToken, value: response.data["access_token"]);
         return response.data["access_token"];
       } else {
+        PageRoutes.router.go(Routes.loginScreen);
         return "";
       }
     } on Exception catch (e) {
       e.toString().printConsole;
-PageRoutes.router.go(Routes.loginScreen);
+      PageRoutes.router.go(Routes.loginScreen);
       rethrow;
     }
   }

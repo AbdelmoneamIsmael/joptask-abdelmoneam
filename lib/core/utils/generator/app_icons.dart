@@ -10,4 +10,5 @@ abstract class AppIcons {
   static const String priorityIcon = 'assets/icons/flag.svg';
   static const String addImage = 'assets/icons/add-image.svg';
   static const String copyIcon = 'assets/icons/copyIcon.svg';
+  static const String noTasks = 'assets/icons/searching-data.svg';
 }

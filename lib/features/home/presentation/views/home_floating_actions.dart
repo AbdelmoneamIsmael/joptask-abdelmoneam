@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
 import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/generator/app_icons.dart';
+import 'package:tasky_abdelmoneam/features/home/veiw_model/cubit/home_cubit.dart';
 
 class HomeFloatingActions extends StatelessWidget {
   const HomeFloatingActions({
@@ -36,7 +38,9 @@ class HomeFloatingActions extends StatelessWidget {
           FloatingActionButton(
             shape: const CircleBorder(),
             onPressed: () {
-              GoRouter.of(context).push(Routes.createTask);
+              GoRouter.of(context).push(Routes.createTask).then(
+                    (value) => BlocProvider.of<HomeCubit>(context).refresh(),
+                  );
             },
             child: const Icon(Icons.add),
           ),

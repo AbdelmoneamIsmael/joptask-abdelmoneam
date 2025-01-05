@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:tasky_abdelmoneam/core/utils/generator/app_images.dart';
 
 class CachedImage extends StatelessWidget {
   const CachedImage({
@@ -15,7 +16,7 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      fit: fit ?? BoxFit.fill,
+      fit: fit ?? BoxFit.cover,
       imageUrl: url,
       placeholder: (context, url) {
         return BlurHash(
@@ -24,8 +25,7 @@ class CachedImage extends StatelessWidget {
         );
       },
       errorWidget: (context, url, error) =>
-          errorWidget ?? const Icon(Icons.broken_image_outlined),
+          errorWidget ?? Image.asset(AppImages.defaultTaskImage),
     );
   }
 }
-

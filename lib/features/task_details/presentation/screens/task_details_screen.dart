@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasky_abdelmoneam/core/configuration/app_colors.dart';
+import 'package:tasky_abdelmoneam/core/constant/app_constant.dart';
 import 'package:tasky_abdelmoneam/core/models/task_model.dart';
 import 'package:tasky_abdelmoneam/core/utils/functions/initialize_getit.dart';
 import 'package:tasky_abdelmoneam/core/widgets/loading_overlay.dart';
@@ -70,9 +71,8 @@ class TaskDetailsScreen extends StatelessWidget {
             Scaffold(
               body: CustomScrollView(
                 slivers: [
-                  const ScreenAppBar(
-                    image:
-                        "https://fps.cdnpk.net/images/home/subhome-ai.webp?w=649&h=649",
+                  ScreenAppBar(
+                    image: "$imageUrl${task.image}",
                   ),
                   TaskSliverTitle(
                     title: task.title ?? "Grocery Shopping App",

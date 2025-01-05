@@ -123,6 +123,7 @@ class TaskDetailsView extends StatelessWidget {
                     WidgetWithTitle(
                       title: 'Task Description',
                       child: AppTextField(
+                        keyboardType: TextInputType.multiline,
                         controller: cubit.descriptionController,
                         maxLines: 6,
                         hint: "Enter Description here...",
@@ -194,6 +195,4 @@ class TaskDetailsView extends StatelessWidget {
       ),
     );
   }
-
-  
 }

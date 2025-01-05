@@ -9,8 +9,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController phoneController = TextEditingController();
   onInit() async {
     await getProfileData();
-    
-        
   }
 
   @override
@@ -34,18 +32,31 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-   String formatPhoneNumber(String phoneNumber) {
-    // Here you would format the phone number to match your mask
-    // For example, if the phone number is just digits, format it accordingly
-    // This is just a placeholder logic; adjust according to your needs
+  String formatPhoneNumber(String phoneNumber) {
+    // Remove all non-digit characters from the phone number
     final cleanedNumber = phoneNumber.replaceAll(RegExp(r'\D'), '');
 
-    // Example, assuming the phone number should match +00 000-000-00000-0000-00000
-    // Adjust the formatting logic according to your requirements
-    if (cleanedNumber.length == 13) {
-      // Adjust based on expected length
-      return '+${cleanedNumber.substring(0, 2)} ${cleanedNumber.substring(2, 5)}-${cleanedNumber.substring(5, 8)}-${cleanedNumber.substring(8, 12)}-${cleanedNumber.substring(12, 13)}';
+    // Check if the cleaned number has at least 2 digits
+    if (cleanedNumber.length >= 2) {
+      // Format the phone number dynamically
+      String formattedNumber =
+          '+${cleanedNumber.substring(0, 2)}'; // Country code
+
+      // Add the rest of the digits in groups of 3, separated by '-'
+      for (int i = 2; i < cleanedNumber.length; i += 3) {
+        if (i + 3 <= cleanedNumber.length) {
+          formattedNumber +=
+              '${i != 2 ? '-' : ' '}${cleanedNumber.substring(i, i + 3)}';
+        } else {
+          formattedNumber += ' ${cleanedNumber.substring(i)}';
+        }
+      }
+
+      // Return the formatted phone number
+      return formattedNumber;
     }
-    return phoneNumber; // Return the original if formatting fails
+
+    // Return the original phone number if formatting fails
+    return phoneNumber;
   }
 }
