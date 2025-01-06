@@ -1,16 +1,17 @@
 # tasky_abdelmoneam
 
-A new Flutter project.
+A simple and efficient Todo Task application that allows users to create tasks, scan them with QR codes, and manage their tasks by editing or deleting as needed.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Create Tasks**: Easily add new tasks to your list.
+- **QR Code Scanning**: Generate and scan QR codes for each task for quick access.
+- **Edit Tasks**: Modify existing tasks to update details.
+- **Delete Tasks**: Remove tasks that are no longer needed.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
+   ```bash
+   git clone (https://github.com/AbdelmoneamIsmael/tasky-joptask-abdelmoneam.git)
