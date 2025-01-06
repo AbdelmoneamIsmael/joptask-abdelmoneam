@@ -6,7 +6,6 @@ import 'package:tasky_abdelmoneam/core/routes/app_routers.dart';
 import 'package:tasky_abdelmoneam/core/routes/routes.dart';
 import 'package:tasky_abdelmoneam/core/utils/api/api_repo.dart';
 import 'package:tasky_abdelmoneam/core/utils/cache/cache_helper.dart';
-import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 
 class ApiServer extends ApiRepo {
   //singlton
@@ -137,7 +136,6 @@ class ApiServer extends ApiRepo {
       data: data,
     );
 
-    response.statusCode.toString().printConsole;
     return response.data;
   }
 
@@ -184,8 +182,7 @@ class ApiServer extends ApiRepo {
   }
 
   Future<String> refreshToken() async {
-    "---------------------------refreshing token-----------------------------"
-        .printConsole;
+;
     try {
       String? accessToken =
           await CacheHelper.getSecuerString(key: CachedKeys.accessToken);
@@ -201,16 +198,19 @@ class ApiServer extends ApiRepo {
         url,
       );
       if (response.statusCode == 200) {
-        "access token is ${response.data["access_token"]}".printConsole;
         await CacheHelper.setSecuerString(
             key: CachedKeys.accessToken, value: response.data["access_token"]);
         return response.data["access_token"];
       } else {
+        isAuth = false;
+        await CacheHelper.setSecuerString(
+            key: CachedKeys.accessToken, value: "");
+        await CacheHelper.setSecuerString(
+            key: CachedKeys.refreshToken, value: "");
         PageRoutes.router.go(Routes.loginScreen);
         return "";
       }
     } on Exception catch (e) {
-      e.toString().printConsole;
       PageRoutes.router.go(Routes.loginScreen);
       rethrow;
     }

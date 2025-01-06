@@ -26,7 +26,6 @@ class GettAllTasksRepoImple extends GetAllTasksRepo {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       } else {
-        e.toString().printConsole;
         return Left(
           ServerFailure(
             e.toString(),

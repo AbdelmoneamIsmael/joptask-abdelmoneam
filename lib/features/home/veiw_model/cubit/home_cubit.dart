@@ -69,7 +69,6 @@ class HomeCubit extends Cubit<HomeState> {
       result.fold(
         (failure) => emit(FaiGetAllTasks(message: failure.message)),
         (success) {
-          " incomming tasks ${success.length}".toString().printConsole;
           if (success.length < pageSize) {
             isThereMoreTasks = false;
           }

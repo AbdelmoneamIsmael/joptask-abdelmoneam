@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 mixin ImageMixin {
   final ImagePicker _imagePicker = ImagePicker();
@@ -19,7 +20,7 @@ mixin ImageMixin {
       isNoPhoto = false;
       return await _compressFile(File(result.path));
     } else {
-      return File("assets/images/logo.png");
+      return await loadAssetAsFile("assets/images/default_rask_image.png");
     }
   }
 
@@ -37,9 +38,11 @@ mixin ImageMixin {
 
     if (result != null) {
       isNoPhoto = false;
-      return await _compressFile(File(result.path),);
+      return await _compressFile(
+        File(result.path),
+      );
     } else {
-      return File("assets/images/logo.png");
+      return await loadAssetAsFile("assets/images/default_rask_image.png");
     }
   }
 
@@ -102,5 +105,24 @@ mixin ImageMixin {
     );
 
     return result;
+  }
+
+  Future<File> loadAssetAsFile(String assetPath) async {
+    // Load the asset data as bytes
+    ByteData data = await rootBundle.load(assetPath);
+
+    // Convert ByteData to Uint8List
+    Uint8List bytes = data.buffer.asUint8List();
+
+    // Get the temporary directory for the app
+    Directory tempDir = await getTemporaryDirectory();
+
+    // Create a file in the temporary directory
+    File file = File('${tempDir.path}/image.png');
+
+    // Write the bytes to the file
+    await file.writeAsBytes(bytes);
+
+    return file;
   }
 }

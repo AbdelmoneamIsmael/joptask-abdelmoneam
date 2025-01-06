@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:tasky_abdelmoneam/core/configuration/text_extention.dart';
 abstract class Failure {
   Failure(this.message);
   final String message;
@@ -18,11 +17,7 @@ class ServerFailure extends Failure {
       case DioExceptionType.badCertificate:
         return ServerFailure('Bad Certificate with ApiServer');
       case DioExceptionType.badResponse:
-        error.response!.statusCode.toString().printConsole;
-        error.response!.statusMessage.toString().printConsole;
-        error.response!.data.toString().printConsole;
-        error.response!.headers.toString().printConsole;
-        error.response!.requestOptions.toString().printConsole;
+
         return ServerFailure.fromResponse(error.response!);
       case DioExceptionType.cancel:
         return ServerFailure('Cancel with ApiServer');

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tasky_abdelmoneam/core/widgets/get_image_mixin.dart';
 import 'package:tasky_abdelmoneam/features/create_task/presentation/data/model/task_model.dart';
 import 'package:tasky_abdelmoneam/features/create_task/view_model/cubit/edit_task_state.dart';
@@ -28,14 +29,18 @@ class EditTaskCubit extends Cubit<EditTaskState> with ImageMixin {
 
   Future<void> galleryImage() async {
     emit(LoadingImageProcess());
+    await Permission.storage.request();
     imageFile = await getGalleryImage();
     emit(GetGalleryImage());
   }
 
   Future<void> cameraImage() async {
     emit(LoadingImageProcess());
-    imageFile = await getCameraImage();
-    emit(GetCameraImage());
+    var state = await Permission.camera.request();
+    if (state.isGranted) {
+      imageFile = await getCameraImage();
+      emit(GetCameraImage());
+    }
   }
 
   void addTask() async {

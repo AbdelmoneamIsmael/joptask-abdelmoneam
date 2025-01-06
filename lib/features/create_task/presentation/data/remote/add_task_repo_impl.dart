@@ -27,7 +27,6 @@ class AddTaskRepoImpl extends AddTaskRepo {
         data: taskJson,
         
       );
-      result.toString().printConsole;
       return const Right(true);
     } on Exception catch (e) {
       if (e is DioException) {
@@ -72,7 +71,6 @@ class AddTaskRepoImpl extends AddTaskRepo {
      
     );
 
-    imageResult.toString().printConsole;
     return imageResult;
   }
 }

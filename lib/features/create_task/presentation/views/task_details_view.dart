@@ -70,11 +70,17 @@ class TaskDetailsView extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                       onTap: cubit.cameraImage,
-                                      child: const Icon(Icons.camera),
+                                      child: Icon(
+                                        Icons.camera,
+                                        size: 50.h,
+                                      ),
                                     ),
                                     GestureDetector(
                                       onTap: cubit.galleryImage,
-                                      child: const Icon(Icons.image),
+                                      child: Icon(
+                                        Icons.image,
+                                        size: 50.h,
+                                      ),
                                     ),
                                   ],
                                 ),
