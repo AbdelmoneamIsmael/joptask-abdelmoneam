@@ -11,11 +11,12 @@ environment:
 dependencies:
   bloc: ^8.1.4
   cached_network_image: ^3.4.1
+  ## customize the package for my design and add some options that i need
   country_code_picker:
     git: https://github.com/AbdelmoneamIsmael/CountryCodeAddSomeOptions
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
- 
+
   dio: ^5.7.0
   dotted_border: ^2.1.0
   dropdown_button2: ^2.3.9
@@ -24,7 +25,6 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_blurhash: ^0.8.2
   flutter_image_compress: ^2.4.0
-
   flutter_screenutil: ^5.9.3
   flutter_secure_storage: ^9.2.3
   flutter_svg: ^2.0.16
